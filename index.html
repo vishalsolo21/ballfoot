@@ -2,162 +2,112 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live Sports Streaming</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Live Streaming</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
 body{
-    background:#0f172a;
-    color:white;
-    min-height:100vh;
+    margin:0;
+    background:#0f1117;
+    color:#fff;
+    font-family:Arial,sans-serif;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:20px;
+    min-height:100vh;
 }
 
 .container{
-    width:100%;
-    max-width:1200px;
-}
-
-.header{
+    width:95%;
+    max-width:900px;
     text-align:center;
-    margin-bottom:20px;
 }
 
-.header h1{
-    font-size:32px;
-    margin-bottom:8px;
+.player{
+    width:100%;
+    max-width:800px;
+    margin:auto;
+    background:#000;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 0 20px rgba(0,0,0,.5);
 }
 
-.header p{
-    color:#94a3b8;
+.player iframe{
+    width:100%;
+    height:450px;
+    border:none;
 }
 
-.controls{
+.buttons{
+    margin-top:15px;
     display:flex;
     justify-content:center;
-    gap:15px;
-    margin-bottom:20px;
-    flex-wrap:wrap;
+    gap:12px;
 }
 
-.btn{
+button{
     border:none;
-    padding:14px 28px;
-    border-radius:12px;
-    cursor:pointer;
+    padding:12px 25px;
+    border-radius:8px;
     font-size:16px;
     font-weight:bold;
+    cursor:pointer;
     transition:.3s;
 }
 
 .hindi{
-    background:#ff6b00;
-    color:white;
-}
-
-.hindi:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(255,107,0,.4);
+    background:#ff6a00;
+    color:#fff;
 }
 
 .english{
-    background:#2563eb;
-    color:white;
+    background:#0066ff;
+    color:#fff;
 }
 
-.english:hover{
+button:hover{
     transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(37,99,235,.4);
-}
-
-.player-box{
-    background:#111827;
-    border-radius:16px;
-    overflow:hidden;
-    border:1px solid #1e293b;
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
-}
-
-iframe{
-    width:100%;
-    height:70vh;
-    border:none;
-    background:black;
 }
 
 .status{
-    text-align:center;
-    padding:12px;
-    color:#cbd5e1;
-    background:#1e293b;
-}
-
-@media(max-width:768px){
-    iframe{
-        height:60vh;
-    }
-
-    .header h1{
-        font-size:24px;
-    }
-
-    .btn{
-        width:100%;
-        max-width:250px;
-    }
+    margin-top:10px;
+    color:#aaa;
 }
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-    <div class="header">
-        <h1>📺 Live Sports Streaming</h1>
-        <p>Select your preferred commentary language</p>
+    <div class="player">
+        <iframe id="stream"
+                src="https://allrounderlive.in/zee"
+                allowfullscreen>
+        </iframe>
     </div>
 
-    <div class="controls">
-        <button class="btn hindi"
-            onclick="loadStream('https://allrounderlive.in/zee','Hindi Stream')">
+    <div class="buttons">
+        <button class="hindi" onclick="changeStream('https://allrounderlive.in/zee','Hindi')">
             हिन्दी
         </button>
 
-        <button class="btn english"
-            onclick="loadStream('https://allrounderlive.in/tsn','English Stream')">
+        <button class="english" onclick="changeStream('https://allrounderlive.in/tsn','English')">
             English
         </button>
     </div>
 
-    <div class="player-box">
-        <iframe id="player"
-            src="https://allrounderlive.in/zee"
-            allowfullscreen>
-        </iframe>
-
-        <div class="status" id="status">
-            Now Playing: Hindi Stream
-        </div>
+    <div class="status" id="status">
+        Current Stream: Hindi
     </div>
 
 </div>
 
 <script>
-function loadStream(url, name){
-    document.getElementById('player').src = url;
-    document.getElementById('status').innerText =
-        'Now Playing: ' + name;
+function changeStream(url,name){
+    document.getElementById("stream").src = url;
+    document.getElementById("status").innerText =
+        "Current Stream: " + name;
 }
 </script>
 
