@@ -2,58 +2,81 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Live Streaming</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Sports TV</title>
 
 <style>
-body{
+*{
     margin:0;
-    background:#0f1117;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, Arial, sans-serif;
+}
+
+body{
+    background:#0d1117;
     color:#fff;
-    font-family:Arial,sans-serif;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    min-height:100vh;
+    padding:20px;
 }
 
 .container{
-    width:95%;
-    max-width:900px;
-    text-align:center;
-}
-
-.player{
     width:100%;
-    max-width:800px;
-    margin:auto;
-    background:#000;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 0 20px rgba(0,0,0,.5);
+    max-width:900px;
 }
 
-.player iframe{
+.title{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.title h1{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.title p{
+    color:#9ca3af;
+}
+
+.player-box{
+    background:#161b22;
+    border-radius:15px;
+    overflow:hidden;
+    border:1px solid #30363d;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+iframe{
     width:100%;
     height:450px;
     border:none;
+    background:#000;
 }
 
-.buttons{
-    margin-top:15px;
+.controls{
     display:flex;
-    justify-content:center;
     gap:12px;
+    justify-content:center;
+    padding:15px;
+    background:#0f141b;
 }
 
 button{
     border:none;
-    padding:12px 25px;
-    border-radius:8px;
-    font-size:16px;
-    font-weight:bold;
+    padding:12px 28px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
     cursor:pointer;
-    transition:.3s;
+    transition:.25s;
+}
+
+button:hover{
+    transform:translateY(-2px);
 }
 
 .hindi{
@@ -66,13 +89,27 @@ button{
     color:#fff;
 }
 
-button:hover{
-    transform:translateY(-2px);
+.status{
+    text-align:center;
+    padding:12px;
+    color:#c9d1d9;
+    background:#161b22;
+    border-top:1px solid #30363d;
 }
 
-.status{
-    margin-top:10px;
-    color:#aaa;
+@media(max-width:768px){
+
+    iframe{
+        height:260px;
+    }
+
+    .controls{
+        flex-direction:column;
+    }
+
+    button{
+        width:100%;
+    }
 }
 </style>
 </head>
@@ -80,34 +117,57 @@ button:hover{
 
 <div class="container">
 
-    <div class="player">
-        <iframe id="stream"
-                src="https://allrounderlive.in/zee"
-                allowfullscreen>
+    <div class="title">
+        <h1>📺 Live Sports TV</h1>
+        <p>Select Commentary Language</p>
+    </div>
+
+    <div class="player-box">
+
+        <iframe
+            id="player"
+            src="https://allrounderlive.in/zee"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowfullscreen
+            referrerpolicy="no-referrer">
         </iframe>
-    </div>
 
-    <div class="buttons">
-        <button class="hindi" onclick="changeStream('https://allrounderlive.in/zee','Hindi')">
-            हिन्दी
-        </button>
+        <div class="controls">
+            <button class="hindi" onclick="loadHindi()">
+                हिन्दी
+            </button>
 
-        <button class="english" onclick="changeStream('https://allrounderlive.in/tsn','English')">
-            English
-        </button>
-    </div>
+            <button class="english" onclick="loadEnglish()">
+                English
+            </button>
+        </div>
 
-    <div class="status" id="status">
-        Current Stream: Hindi
+        <div class="status" id="status">
+            Now Playing: Hindi Stream
+        </div>
+
     </div>
 
 </div>
 
 <script>
-function changeStream(url,name){
-    document.getElementById("stream").src = url;
-    document.getElementById("status").innerText =
-        "Current Stream: " + name;
+const player = document.getElementById("player");
+const statusText = document.getElementById("status");
+
+function loadHindi(){
+    player.src = "";
+    setTimeout(() => {
+        player.src = "https://allrounderlive.in/zee";
+        statusText.innerText = "Now Playing: Hindi Stream";
+    }, 100);
+}
+
+function loadEnglish(){
+    player.src = "";
+    setTimeout(() => {
+        player.src = "https://allrounderlive.in/tsn";
+        statusText.innerText = "Now Playing: English Stream";
+    }, 100);
 }
 </script>
 
